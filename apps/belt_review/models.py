@@ -92,7 +92,6 @@ class BookManager(models.Manager):
         review = postData['review']
         rating = postData['rating']
         author_name = postData['author_name']
-        print len(author_name)
         author_list = postData['author_list']
         author_name_check = Author.objects.filter(name=author_name)
         validBook = True
@@ -129,13 +128,12 @@ class BookManager(models.Manager):
             else:
                 validAuthor = True
                 author = Author.objects.get(name=author_list)
-        else:
-            if validBook == True and validAuthor == True:
+        if validBook == True and validAuthor == True:
                 Book.objects.create(title=title, author=author)
                 book_add = Book.objects.get(title=title)
                 Review.objects.create(review=review, rating=rating, user=user, book=book_add)
                 messages.success(request, 'Thank you for your review!')
-            return validBook
+        return validBook
 
     def newReview(self, postData, id, request):
         review = postData['review']
