@@ -118,8 +118,7 @@ class BookManager(models.Manager):
                 validAuthor = False
             else:
                 validAuthor = True
-                new_author = Author.objects.create(name=author_name)
-                author = Author.objects.get(name=author_name)
+                author = Author.objects.create(name=author_name)
         if author_list != "select" and validBook == True:
             if len(author_name) > 0:
                 messages.error(request, 'Cannot select an existing author and create a new author simultaneously.')
@@ -133,7 +132,6 @@ class BookManager(models.Manager):
                 book_add = Book.objects.get(title=title)
                 Review.objects.create(review=review, rating=rating, user=user, book=book_add)
                 messages.success(request, 'Thank you for your review!')
-        return validBook
 
     def newReview(self, postData, id, request):
         review = postData['review']
